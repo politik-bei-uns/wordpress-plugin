@@ -1,0 +1,35 @@
+.politik-bei-uns-box {
+    border: 1px solid #1e7e34;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.politik-bei-uns-box a, .politik-bei-uns-box a:visited, .politik-bei-uns-box a:active, .politik-bei-uns-box a:hover {
+    color: #333 !important;
+    text-decoration: none !important;
+}
+
+.politik-bei-uns-box p {
+    margin: 0;
+}
+
+.politik-bei-uns-box .header-box {
+    background-color: #ebf4e3;
+    padding: 10px 10px 10px 10px;
+}
+
+.politik-bei-uns-box .content-box {
+    padding: 10px;
+}
+
+.politik-bei-uns-box .footer-box {
+    background-color: #ebf4e3;
+    padding: 10px 10px 7px 10px;
+}
+
+.politik-bei-uns-imagebox {
+    height: 320px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}

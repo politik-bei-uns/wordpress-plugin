@@ -17,3 +17,5 @@ Mit diesem WordPress Plugin können Sie ganz leicht Vorlagen, Sitzungen und Date
 [politik-bei-uns type="meeting" id="5a426b2944875ce977fcf125"]
 
 [politik-bei-uns type="file" id="5a42b0c344875ce977460567"]
+
+Die Entwicklung des Plugins findet auf Github statt: https://github.com/politik-bei-uns/wordpress-plugin . Bug-Reports, Pull Requests und mehr sind herzlich willkommen!

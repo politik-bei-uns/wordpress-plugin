@@ -8,11 +8,28 @@ Author: Ernesto Ruge
 Author URI: https://binary-butterfly.de
 */
 
-define('PBU_LIGHTBOX_ENABLED', true);
-define('PBU_FONT_AWESOME_ENABLED', true);
+defined('ABSPATH') or die('nope.');
 
+require('politik-bei-uns-admin.php');
 
 add_action( 'wp_enqueue_scripts', function() {
+    $script_depenencies = array('jquery');
+    if (get_option('pbu_font_awesome', false)) {
+        wp_enqueue_style('font-awesome',
+            'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+            array(),
+            '4.7.0'
+        );
+    }
+    if (get_option('pbu_lightbox', false)) {
+        wp_enqueue_script('politik-bei-uns-lightbox',
+            plugins_url('/jquery.colorbox-min.js', __FILE__),
+            array('jquery'),
+            get_plugin_data(__FILE__)['Version'],
+            true
+        );
+        $script_depenencies[] = 'politik-bei-uns-lightbox';
+    }
     wp_enqueue_style('politik-bei-uns',
         plugins_url('/politik-bei-uns.css', __FILE__),
         array(),
@@ -20,7 +37,7 @@ add_action( 'wp_enqueue_scripts', function() {
     );
     wp_enqueue_script('politik-bei-uns',
         plugins_url('/politik-bei-uns.js', __FILE__),
-        array('jquery'),
+        $script_depenencies,
         get_plugin_data(__FILE__)['Version'],
         true
     );
@@ -42,8 +59,8 @@ add_action('wp_footer', function() {
 ?>
 <script>
     pbu_config = {
-        lightbox: <?php echo(PBU_LIGHTBOX_ENABLED); ?>,
-        font_awesome: <?php echo(PBU_FONT_AWESOME_ENABLED); ?>
+        lightbox: <?php echo( (boolval(get_option('pbu_lightbox', false))) ? 'true' : 'false'); ?>,
+        font_awesome: <?php echo((boolval(get_option('pbu_font_awesome', false))) ? 'true' : 'false'); ?>
     };
 </script>
 <?php

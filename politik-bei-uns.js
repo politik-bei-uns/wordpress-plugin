@@ -64,6 +64,25 @@ var PbuMain = function () {
                 }
             }
         }
+        else if (data.type === 'https://schema.oparl.org/1.0/Meeting') {
+            if (data.start)
+                html += ' | Beginn: ' + this.format_datetime(data.start);
+            if (data.end)
+                html += ' | Ende: ' + this.format_datetime(data.end);
+            if (data.agendaItem)
+                html += ' | ' + data.agendaItem.length + ' Tagesordnungspunkte';
+            if (data.location) {
+                html += ' | Ort: ';
+                if (data.location.room)
+                    html += data.location.room + ', ';
+                if (data.location.streetAddress)
+                    html += data.location.streetAddress + ', ';
+                if (data.location.postalCode)
+                    html += data.location.postalCode + ' ';
+                if (data.location.locality)
+                    html += data.location.locality;
+            }
+        }
         html += '</p>';
         html += '</div><div class="content-box">';
         if (data.type === 'https://schema.oparl.org/1.0/Paper') {
@@ -77,12 +96,11 @@ var PbuMain = function () {
         }
         html += '</div><div class="footer-box">';
         html += '<h4><a href="' + portal_base_url + '/' + current_box.data('type') + '/' + obj_id + '" target="_blank">';
-        if (pbu_config.font_awesome) {
-            html += '<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> ';
-        }
+        html += '<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> ';
         html += 'Weitere Details auf "Politik bei uns" anschauen</a>';
-        html += '</div>'
+        html += '</div>';
         current_box.html(html);
+        $('.politik-bei-uns-box[data-id="' + obj_id + '"] .politik-bei-uns-image').colorbox({rel: obj_id});
     };
 
     this.generate_file_fragment = function (file, body) {
@@ -92,11 +110,13 @@ var PbuMain = function () {
                 var file_id = file.id.split('/');
                 file_id = file_id[file_id.length - 1];
                 html += '';
-                html += '<div class="politik-bei-uns-imagebox">';
+                html += '<div class="politik-bei-uns-imagebox"><div class="politik-bei-uns-imagebox-scroll">';
                 for (var i = 1; i <= file['politik-bei-uns:pages']; i++) {
+                    html += '<a href="' + media_base_url + '/file-thumbnails/' + body + '/' + file_id + '/1200/' + i + '.jpg" class="politik-bei-uns-image">';
                     html += '<img src="' + media_base_url + '/file-thumbnails/' + body + '/' + file_id + '/300/' + i + '.jpg">';
+                    html += '</a>';
                 }
-                html += '</div>';
+                html += '</div></div>';
             }
         }
         return html;
